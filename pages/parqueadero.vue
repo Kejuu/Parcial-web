@@ -59,7 +59,7 @@
               
               <b-button size="sm" @click="cargarAuto(row)" class="mr-2">Modificar</b-button>
               <b-button size="sm" @click="eliminarAuto(row)" class="mr-2">Eliminar</b-button>
-              <b-button size="sm" class="mr-2">Dar salida</b-button>
+              <b-button size="sm" @click="darSalida()" class="mr-2">Dar salida</b-button>
             </div>
           </template>
         </b-table>
@@ -68,4 +68,4 @@
   </b-card>
 </template>
 
-<script src="@/assets/seguimiento-revision.js"/>  
+<script src="@/assets/parqueadero.js"/>  

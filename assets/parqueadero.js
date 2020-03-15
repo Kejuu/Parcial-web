@@ -101,7 +101,7 @@ export default {
         //eliminanos un seguimiento segun el item que se le pase por parametro
         eliminarAuto({ item }) {
             let posicion = this.informacion_vehiculos.findIndex(
-                automovil => automovil.placa == item.placa
+                automovil => automovil == item
             );
             this.informacion_vehiculos.splice(posicion, 1);
             localStorage.setItem('automoviles', JSON.stringify(this.informacion_vehiculos));
@@ -126,13 +126,38 @@ export default {
             this.automovil = Object.assign({}, se);
             localStorage.setItem('automoviles', JSON.stringify(this.informacion_vehiculos));
         },
-        darSalida({ item }) {
+        darSalida() {
             let se = this.informacion_vehiculos.find(
-                automovil => automovil.placa == item.placa
+                automovil => automovil.placa == automovil.placa
             );
+            let hoy = new Date();
+                let hora1 = (se.hora).split(":");
+                let hora2 = ("05:33:11").split(":");
+                let t1 = new Date();
+                let t2 = new Date();
+            
+            t1.setHours(hora1[0], hora1[1], hora1[2]);
+            t2.setHours(hora2[0], hora2[1], hora2[2]);
+            let hora = (hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds()).split(":");
+            //Aquí hago la resta
+            t1.setHours(t1.getHours() - t2.getHours(), t1.getMinutes() - t2.getMinutes(), t1.getSeconds() - t2.getSeconds());
+            let horap = (t1.getHours() ? t1.getHours() + (t1.getHours() > 1 ? " horas" : " hora") : "") + (t1.getMinutes() ? ", " + t1.getMinutes() + (t1.getMinutes() > 1 ? " minutos" : " minuto") : "") + (t1.getSeconds() ? (t1.getHours() || t1.getMinutes() ? " y " : "") + t1.getSeconds() + (t1.getSeconds() > 1 ? " segundos" : " segundo") : "");
             this.enEdicion = true;
             this.automovil = Object.assign({}, se);
-            localStorage.setItem('automoviles', JSON.stringify(this.informacion_vehiculos));
+            let difhora = hora2[0] - hora1[0]
+            window.alert(difhora);
+            let precio;
+            if (se.auto == "CARRO"){
+                precio=difhora*8000
+            }else if (se.auto == "MOTO"){
+                precio=difhora*4000
+            }else if (se.auto == "BICILETA"){
+                precio=difhora*2000
+            }else if (se.auto == "CAMIÓN"){
+                precio=difhora*21000
+            }
+            window.alert(precio);
+            
         },
         //metodo para guardar la lista de seguimientos en el local storage
         local() {
